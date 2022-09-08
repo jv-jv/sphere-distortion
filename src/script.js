@@ -54,8 +54,16 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   100
 )
-camera.position.set(0.25, -0.25, 1)
+camera.position.set(0, 0, 20)
 scene.add(camera)
+
+// Sphere
+const sphereGeometry = new THREE.SphereGeometry(10, 100, 100)
+// const sphereMaterial = new THREE.MeshBasicMaterial({ wireframe: true })
+const sphereMaterial = new THREE.PointsMaterial({ size: 0.05 })
+
+const sphere = new THREE.Points(sphereGeometry, sphereMaterial)
+scene.add(sphere)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
