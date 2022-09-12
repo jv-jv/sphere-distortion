@@ -58,11 +58,15 @@ camera.position.set(0, 0, 20)
 scene.add(camera)
 
 // Sphere
-const sphereGeometry = new THREE.SphereGeometry(10, 100, 100)
-// const sphereMaterial = new THREE.MeshBasicMaterial({ wireframe: true })
-const sphereMaterial = new THREE.PointsMaterial({ size: 0.05 })
+const sphereGeometry = new THREE.SphereBufferGeometry(10, 100, 100)
 
-const sphere = new THREE.Points(sphereGeometry, sphereMaterial)
+const shaderMaterial = new THREE.RawShaderMaterial({
+  vertexShader: testVertexShader,
+  fragmentShader: testFragmentShader,
+})
+
+const sphere = new THREE.Points(sphereGeometry, shaderMaterial)
+
 scene.add(sphere)
 
 // Controls
