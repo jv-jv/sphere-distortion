@@ -7,6 +7,7 @@ uniform mat4 modelMatrix;
 attribute vec3 position;
 
 varying vec3 vPosition;
+float rand(float co) { return fract(sin(co*(91.3458)) * 47453.5453); }
 
 void main()
 {
@@ -17,7 +18,15 @@ void main()
     //***** https://learnopengl.com/Getting-started/Coordinate-Systems *****//
 
     // 1)postion our geometry - coordinates your object begins in.
+    
     vec4 localPosition = vec4(position , 1.0);
+    // vec4 localPosition = vec4(rand(position.x), rand(position.y), position.z , 1.0);
+    // vec4 localPosition = vec4(position.x * rand(position.x), position.y * rand(position.y), position.z , 1.0);
+    // vec4 localPosition = vec4(position.x + rand(position.x), position.y + rand(position.y), position.z , 1.0);
+    // vec4 localPosition = vec4(position.x , position.y * sin(position.y), position.z , 1.0);
+    // vec4 localPosition = vec4(rand(position.x )* 10.,  rand(position.y) * 10., rand(position.z )*10., 1.0);
+    
+
     
     // 2)transform the local coordinates to world-space coordinates
     vec4 worldPosition = modelMatrix * localPosition;
@@ -29,7 +38,7 @@ void main()
     vec4 clipPosition = projectionMatrix * viewPosition;
 
     gl_Position = clipPosition;
-    gl_PointSize = 1.8;
+    gl_PointSize = 2.;
 
 
 }
