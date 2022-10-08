@@ -60,6 +60,13 @@ scene.add(camera)
 // Sphere
 const sphereGeometry = new THREE.SphereBufferGeometry(10, 100, 100)
 
+const count = sphereGeometry.attributes.position.count
+const randomsValues = new Float32Array(count).map((e) => Math.random())
+sphereGeometry.setAttribute(
+  "aRandom",
+  new THREE.BufferAttribute(randomsValues, 1)
+)
+
 const shaderMaterial = new THREE.RawShaderMaterial({
   vertexShader: testVertexShader,
   fragmentShader: testFragmentShader,
@@ -81,6 +88,13 @@ const renderer = new THREE.WebGLRenderer({
 })
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+// window.addEventListener("mousemove", (mouseEvent) => {
+//   // console.log("mouseEvent :", mouseEvent)
+//   const { clientX, clientY } = mouseEvent
+//   console.log("clientY :", clientY)
+//   console.log("clientX :", clientX)
+// })
 
 /**
  * Animate

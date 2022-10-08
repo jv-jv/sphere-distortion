@@ -5,6 +5,7 @@ uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 
 attribute vec3 position;
+attribute float aRandom;
 
 varying vec3 vPosition;
 float rand(float co) { return fract(sin(co*(91.3458)) * 47453.5453); }
@@ -19,12 +20,14 @@ void main()
 
     // 1)postion our geometry - coordinates your object begins in.
     
-    vec4 localPosition = vec4(position , 1.0);
+    // vec4 localPosition = vec4(position , 1.0);
     // vec4 localPosition = vec4(rand(position.x), rand(position.y), position.z , 1.0);
     // vec4 localPosition = vec4(position.x * rand(position.x), position.y * rand(position.y), position.z , 1.0);
     // vec4 localPosition = vec4(position.x + rand(position.x), position.y + rand(position.y), position.z , 1.0);
     // vec4 localPosition = vec4(position.x , position.y * sin(position.y), position.z , 1.0);
     // vec4 localPosition = vec4(rand(position.x )* 10.,  rand(position.y) * 10., rand(position.z )*10., 1.0);
+    // vec4 localPosition = vec4(position.x +(rand(position.x) * 1.), position.y + (rand(position.y) * 1.), position.z , 1.0);
+    vec4 localPosition = vec4(position.x , position.y * aRandom, position.z , 1.0);
     
 
     
