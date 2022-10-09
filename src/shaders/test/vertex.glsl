@@ -35,6 +35,8 @@ void main()
         position.x * aRandom * uTime,
         position.y * aRandom * uTime,
         position.z * aRandom * uTime,
+        // position.z ,
+
         1.0);
     
 
