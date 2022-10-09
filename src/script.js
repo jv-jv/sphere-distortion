@@ -107,6 +107,10 @@ window.addEventListener("touchend", () => {
   renderSphere({ x: 0, y: 0, z: 0 })
 })
 
+window.addEventListener("click", () => {
+  renderSphere({ x: 0, y: 0, z: 0 })
+})
+
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
