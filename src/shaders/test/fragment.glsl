@@ -2,28 +2,16 @@ precision mediump float;
 
 
 varying vec3 vPosition;
+varying vec3 vColors;
 varying float vRandom;
-
-// void main() {
-
-//     //**** simple color - a vector of rgba
-//     // vec4 color = vec4(1., 0.0, .0, 1.);
-//     // gl_FragColor = color;
-//     //******
-
-//     //***** use mix function
-
-//     float depth = vPosition.x;
-
-//     vec3 color1 = vec3(1., 1.0, 1.0);
-//     vec3 color2 = vec3(0., .0, 1.0);
-
-//     vec3 mixedColor = mix(color1, color2, depth);
-//     gl_FragColor = vec4(mixedColor, 1.0);
-// }
-
 
 void main()
 {
-    gl_FragColor = vec4(1.0, 1.0 * vRandom, 1.0 , 1.0);
+    // gl_FragColor = vec4(1.0 * vColors.r, 1.0 * vColors.g, 1.0 * vColors.b, 1.0);
+    // gl_FragColor = vec4(1.0 , 1.0 * vColors.g, 1.0 * vColors.b, 1.0);
+    // gl_FragColor = vec4( vColors.r, vColors.g, vColors.b, 1.0);
+    gl_FragColor = vec4( 1.0, 1.0  * vRandom , 1.0, 1.0);
+
+
+
 }

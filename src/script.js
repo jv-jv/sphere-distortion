@@ -2,8 +2,8 @@ import "./style.css"
 import * as THREE from "three"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js"
 import * as dat from "lil-gui"
-import testVertexShader from "./shaders/test/vertex.glsl"
-import testFragmentShader from "./shaders/test/fragment.glsl"
+import vertexShader from "./shaders/test/vertex.glsl"
+import fragmentShader from "./shaders/test/fragment.glsl"
 
 /**
  * Base
@@ -57,22 +57,6 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 0, 20)
 scene.add(camera)
 
-const raycaster = new THREE.Raycaster()
-const mouse = new THREE.Vector2()
-const plane = new THREE.Plane()
-const planeNormal = new THREE.Vector3()
-const intersectionPoint = new THREE.Vector3()
-
-window.addEventListener("mousemove", (event) => {
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-  planeNormal.copy(camera.position).normalize()
-  plane.setFromNormalAndCoplanarPoint(planeNormal, scene.position)
-  raycaster.setFromCamera(mouse, camera)
-  raycaster.ray.intersectPlane(plane, intersectionPoint)
-  console.log("intersectionPoint :", intersectionPoint)
-})
-
 // Sphere
 
 const renderSphere = ({ x, y, z }) => {
@@ -86,10 +70,22 @@ const renderSphere = ({ x, y, z }) => {
   )
 
   const shaderMaterial = new THREE.RawShaderMaterial({
-    vertexShader: testVertexShader,
-    fragmentShader: testFragmentShader,
+    vertexShader: vertexShader,
+    fragmentShader: fragmentShader,
     uniforms: {
       uTime: { value: 0 },
+      // uColors: { value: { r: 0.5, g: 0.2, b: 0.7 } },
+      uColors: {
+        value: {
+          r: Math.random() * 0.5,
+          g: Math.random() * 0.5,
+          b: Math.random() * 0.5,
+        },
+      },
+
+      // uR: { value: Math.random() },
+      // uG: { value: Math.random() },
+      // uB: { value: Math.random() },
     },
   })
   const sphere = new THREE.Points(sphereGeometry, shaderMaterial)
@@ -99,26 +95,22 @@ const renderSphere = ({ x, y, z }) => {
   const instanceClock = new THREE.Clock()
   const sphereTick = () => {
     const elapsedTime = instanceClock.getElapsedTime()
-
     // Update material
     shaderMaterial.uniforms.uTime.value = elapsedTime
-
     // Call tick again on the next frame
     window.requestAnimationFrame(sphereTick)
   }
   sphereTick()
 }
 
-window.addEventListener("touchend", (e) => {
-  console.log("e :", e)
-
-  // const { x, y, z } = intersectionPoint
-  renderSphere({ x: 2, y: 2, z: 2 })
+window.addEventListener("touchend", () => {
+  renderSphere({ x: 0, y: 0, z: 0 })
 })
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
 controls.enableDamping = true
+controls.enablePan = false
 
 /**
  * Renderer
@@ -132,13 +124,8 @@ renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 /**
  * Animate
  */
-const clock = new THREE.Clock()
 
 const tick = () => {
-  const elapsedTime = clock.getElapsedTime()
-
-  // Update material
-  // shaderMaterial.uniforms.uTime.value = elapsedTime
   // Update controls
   controls.update()
 

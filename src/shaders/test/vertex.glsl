@@ -4,11 +4,13 @@ uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
 uniform float uTime;
+uniform vec3 uColors;
 
 attribute vec3 position;
 attribute float aRandom;
 
 varying vec3 vPosition;
+varying vec3 vColors;
 varying float vRandom;
 
 float rand(float co) { return fract(sin(co*(91.3458)) * 47453.5453); }
@@ -18,8 +20,8 @@ void main()
 
 
     vPosition = position;
+    vColors = uColors;
     vRandom = aRandom;
-
     //***** https://learnopengl.com/Getting-started/Coordinate-Systems *****//
 
     // 1)postion our geometry - coordinates your object begins in.
