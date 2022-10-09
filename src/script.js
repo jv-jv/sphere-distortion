@@ -109,11 +109,9 @@ const renderSphere = ({ x, y, z }) => {
   sphereTick()
 }
 
-window.addEventListener("touchend", (e) => {
-  console.log("e :", e)
-
-  // const { x, y, z } = intersectionPoint
-  renderSphere({ x: 2, y: 2, z: 2 })
+window.addEventListener("click", () => {
+  const { x, y, z } = intersectionPoint
+  renderSphere({ x, y, z })
 })
 
 // Controls
