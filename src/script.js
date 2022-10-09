@@ -58,7 +58,7 @@ camera.position.set(0, 0, 20)
 scene.add(camera)
 
 // Sphere
-const sphereGeometry = new THREE.SphereBufferGeometry(10, 100, 100)
+const sphereGeometry = new THREE.SphereBufferGeometry(10, 30, 300)
 
 const count = sphereGeometry.attributes.position.count
 const randomsValues = new Float32Array(count).map((e) => Math.random())
@@ -70,6 +70,9 @@ sphereGeometry.setAttribute(
 const shaderMaterial = new THREE.RawShaderMaterial({
   vertexShader: testVertexShader,
   fragmentShader: testFragmentShader,
+  uniforms: {
+    uTime: { value: 0 },
+  },
 })
 
 const sphere = new THREE.Points(sphereGeometry, shaderMaterial)
@@ -89,13 +92,6 @@ const renderer = new THREE.WebGLRenderer({
 renderer.setSize(sizes.width, sizes.height)
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
 
-// window.addEventListener("mousemove", (mouseEvent) => {
-//   // console.log("mouseEvent :", mouseEvent)
-//   const { clientX, clientY } = mouseEvent
-//   console.log("clientY :", clientY)
-//   console.log("clientX :", clientX)
-// })
-
 /**
  * Animate
  */
@@ -105,7 +101,7 @@ const tick = () => {
   const elapsedTime = clock.getElapsedTime()
 
   // Update material
-
+  shaderMaterial.uniforms.uTime.value = elapsedTime
   // Update controls
   controls.update()
 

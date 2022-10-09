@@ -3,11 +3,14 @@
 uniform mat4 projectionMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 modelMatrix;
+uniform float uTime;
 
 attribute vec3 position;
 attribute float aRandom;
 
 varying vec3 vPosition;
+varying float vRandom;
+
 float rand(float co) { return fract(sin(co*(91.3458)) * 47453.5453); }
 
 void main()
@@ -15,6 +18,7 @@ void main()
 
 
     vPosition = position;
+    vRandom = aRandom;
 
     //***** https://learnopengl.com/Getting-started/Coordinate-Systems *****//
 
@@ -27,7 +31,11 @@ void main()
     // vec4 localPosition = vec4(position.x , position.y * sin(position.y), position.z , 1.0);
     // vec4 localPosition = vec4(rand(position.x )* 10.,  rand(position.y) * 10., rand(position.z )*10., 1.0);
     // vec4 localPosition = vec4(position.x +(rand(position.x) * 1.), position.y + (rand(position.y) * 1.), position.z , 1.0);
-    vec4 localPosition = vec4(position.x , position.y * aRandom, position.z , 1.0);
+    vec4 localPosition = vec4(
+        position.x * aRandom * uTime,
+        position.y * aRandom * uTime,
+        position.z * aRandom * uTime,
+        1.0);
     
 
     
