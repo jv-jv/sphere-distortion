@@ -109,25 +109,12 @@ const renderSphere = ({ x, y, z }) => {
   sphereTick()
 }
 
-window.addEventListener("click", () => {
-  const { x, y, z } = intersectionPoint
-  renderSphere({ x, y, z })
+window.addEventListener("click", (e) => {
+  console.log("e :", e)
+
+  // const { x, y, z } = intersectionPoint
+  renderSphere({ x: 2, y: 2, z: 2 })
 })
-
-// renderSphere({ x: 0, y: 0, z: 0 })
-
-// setTimeout(() => {
-//   renderSphere({ x: 2, y: 2, z: 2 })
-// }, 1500)
-
-// const sphere2 = new THREE.Points(sphereGeometry, shaderMaterial)
-// sphere2.position.set(2, 2, 2)
-// const sphere3 = new THREE.Points(sphereGeometry, shaderMaterial)
-// sphere3.position.set(-2, -3, 4)
-
-// scene.add(sphere)
-// scene.add(sphere2)
-// scene.add(sphere3)
 
 // Controls
 const controls = new OrbitControls(camera, canvas)
